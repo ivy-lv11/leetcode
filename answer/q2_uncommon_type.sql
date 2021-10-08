@@ -1,0 +1,1 @@
+select t1.type as type,t1.primary_title as ptitle,t1.runtime_minutes as runtime from titles t1 where t1.runtime_minutes is not null and not exists (select * from titles t2 where t2.type=t1.type and t2.runtime_minutes>t1.runtime_minutes) order by type asc, ptitle asc;
