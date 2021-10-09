@@ -16,68 +16,34 @@ public:
     }
     
     void addNum(int val) {
-        bool flag_inside = false;
-        bool flag_outside = false;
-        bool flag_continue  = false;
-        for(auto v:dic)
-        {
-            int l = v.first;
-            int r = v.second;
-            if((l<=val) && (r>=val))
+        auto intervall1 = dic.upper_bound(val);
+        auto intervall0 = intervall1==dic.begin()?dic.end():prev(intervall1);
+        if(intervall0!=dic.end() && intervall0->first<=val && val<=intervall0->second)
+            return;
+        else {
+            bool left_side = intervall0!=dic.end() && intervall0->second==val-1;
+            bool right_side = intervall1!=dic.end() && intervall1->first==val+1;
+            if(left_side && right_side)
             {
-                flag_inside = true;
-                return;
+                int new_start = intervall0->first;
+                int new_end = intervall1->second;
+                dic.erase(intervall1);
+                dic.erase(intervall0);
+                dic[new_start]= new_end;
             }
-            else if((val==l-1)||(val==r+1))
+            else if(left_side)
             {
-                flag_continue = true;
-                if(val==l-1)
-                {
-                    dic.erase(l);
-                    int flag_concat = -1;
-                    for(auto u:dic)
-                    {
-                        if(u.second==val-1)
-                        {
-                            flag_concat = u.first;
-                            dic.erase(u.first);
-                            break;
-                        }
-                    }
-                    if(flag_concat!=-1)
-                    {
-                        dic[flag_concat] = r;
-                    }
-                    else
-                        dic[val] = r;
-                    return;
-                }
-                else if(val==r+1)
-                {
-                    dic.erase(l);
-                    int flag_concat = -1;
-                    for(auto u:dic)
-                    {
-                        if(u.first==val+1)
-                        {
-                            flag_concat = u.second;
-                            dic.erase(u.first);
-                            break;
-                        }
-                    }
-                    if(flag_concat!=-1)
-                    {
-                        dic[l] = flag_concat;
-                        
-                    }
-                    else
-                        dic[l] = val;
-                    return;
-                }
+                intervall0->second ++;
             }
-            
+            else if(right_side)
+            {
+                int new_end = intervall1->second;
+                dic.erase(intervall1);
+                dic[val] = new_end;
+            }
+            else
+                dic[val] = val;
         }
-        dic[val] = val;
     }
     
     vector<vector<int>> getIntervals() {
