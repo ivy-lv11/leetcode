@@ -1,4 +1,5 @@
 class Solution {
+    
 public:
     int arrangeCoins(int n) {
         int total = 0;
