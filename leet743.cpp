@@ -74,7 +74,7 @@ public:
                 }
             }
         }
-        return *max_element(label.begin()+1,label.end())==INF?:-1:*max_element(label.begin()+1,label.end());
+        return *max_element(label.begin()+1,label.end())==INF?-1:*max_element(label.begin()+1,label.end());
 
         
     }
