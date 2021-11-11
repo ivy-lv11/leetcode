@@ -53,5 +53,6 @@ int main()
     vector<string> t  = {"577725","387","908","2","1","3312038","60997700","960084840","721182339","554615679","4410","76","9700217","6918033","8401489025"};
     Solution sol;
     string re = sol.kthLargestNumber(t,1);
+    cout<<re<<endl;
     return 0;
 }

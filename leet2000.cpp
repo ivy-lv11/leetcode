@@ -38,5 +38,6 @@ int main()
     string s("1234567");
     Solution sol;
     string t = sol.reversePrefix(s,'4');
+    cout<<t<<endl;
     return 0;
 }
